@@ -12,6 +12,7 @@ class Tree {
        root = new Node;
        root->value = 'r';
        Build_Tree(root, in_v);
+       Perestanovka(root);
     }
     std::string operator[] (unsigned int n) const {
        if (n >= param_per.size()) {
