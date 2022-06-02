@@ -7,21 +7,21 @@
 #include <algorithm>
 
 class Tree {
- public:
-   explicit Tree(std::vector<char> in_v) {
-       root = new Node;
-       root->value = 'r';
-       Build_Tree(root, in_v);
-       Perestanovka(root);
-   }
-
-   std::string operator[](unsigned int n) const {
-       if (n >= param_per.size()) {
-           return "";
-       }
-       return param_per[n];
-   }
-
+  public:
+    explicit Tree(std::vector<char> in_v) {
+        root = new Node;
+        root->value = 'r';
+        Build_Tree(root, in_v);
+        Perestanovka(root);
+    }
+    
+    std::string operator[](unsigned int n) const {
+        if (n >= param_per.size()) {
+            return "";
+        }
+        return param_per[n];
+    }
+    
  private:
     struct Node{
         char value;
@@ -29,7 +29,7 @@ class Tree {
     };
     Node* root;
     void Build_Tree(Node* root, std::vector<char> _v) {
-        if(!_v.size()) {
+        if (!_v.size()) {
             return;
         }
         if ('r' != root->value) {
@@ -49,9 +49,9 @@ class Tree {
             Build_Tree(root->level[step], _v);
         }
     }
-
+    
     std::vector<std::string> param_per;
-
+    
     void Perestanovka(Node* root, std::string str = "") {
         if (!root->level.size()) {
             str += root->value;
