@@ -7,57 +7,66 @@
 
 class Tree {
  public:
-    explicit Tree(std::vector<char> in_vec) {
-        root = new Node;
-        root->value = 'r';
-        buildTree(root, in_vec);
-        Perestanovka(root);
-    }
-    std::vector take(int _i) {
-        if (_i >= param_per.size()) {
-            return 0;
-        }
-        else {
-            return param_per[_i];
-        }
-    }
+   explicit Tree(std::vector<char> in_v) {
+       root = new Node;
+       root->value = 'r';
+       Build_Tree(root, in_v);
+   }
 
+   std::string operator[](unsigned int n) const {
+       if (n >= param_per.size()) {
+           return 0;
+       }
+       return param_per[n];
+   }
+    
  private:
-    typedef struct {
+    struct Node{
         char value;
         std::vector<Node*> level;
-    } Node;
+    };
     Node* root;
+    void Build_Tree(Node* root, std::vector<char> _v) {
+        if(_v.size() > 0) {
+            if ('r' == root->value) {
+                for (unsigned int step = 0; step < _v.size(); step++) {
+                    root->level.push_back(new Node);
+                }
+            } else {
+                std::vector<char>::iterator pos =
+                        std::find(_v.begin(), _v.end(), root->value);
+                if (pos != _v.end()) {
+                    _v.erase(pos);
+                }
+                for (unsigned int step = 0; step < _v.size(); step++) {
+                    root->level.push_back(new Node);
+                }
+                for (unsigned int step = 0; step < root->level.size(); ++step) {
+                    root->level[step]->value = _v[step];
+                }
+                for (unsigned int step = 0; step < root->level.size(); ++step) {
+                    Build_Tree(root->level[step], _v);
+                }
+            }
+        }
+    }
 
-    std::vector<char> param_per;
+    std::vector<std::string> param_per;
 
-    void buildLevel(Node* root, std::vector<char> _in) {
-        if (!_in_vec.size()) {
+    void Perestanovka(Node* root, std::string str = "") {
+        if (root->level.size() > 0) {
+            str = str + root->value;
+            param_per.push_back(str);
             return;
         }
         if ('r' != root->value) {
-            _in.erase(std::find(_in.begin(), _in.end(), root->value));
+            str = str + root->value;
         }
-        for (int step = 0; step < _in.size(); step++) {
-            root->level.push_back(new Node);
-        }
-        for (int step = 0; step < root->level.size(); step++) {
-            root->level[step]->value = _in[step];
-            buildLevel(root->level[step], _in);
-        }
-    }
-    void Perestanovka(Node* root, std::vector<char> _v = "") {
-        if (!root->level.size()) {
-            _v.push_back(root->value);
-            param_per.push_back(_v);
-        }
-        if ('r' != root->value) {
-            _v.push_back(root->value);
-        }
-        for (int step = 0; step < root->level.size(); step++) {
-            Perestanovka(root->level[step], _v);
+        for (unsigned int step = 0; step < root->level.size(); ++step) {
+            Perestanovka(root->level[step], str);
         }
     }
 };
+
 
 #endif  // INCLUDE_TREE_H_
