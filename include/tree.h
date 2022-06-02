@@ -2,24 +2,23 @@
 #ifndef INCLUDE_TREE_H_
 #define INCLUDE_TREE_H_
 #include <iostream>
+#include <string>
 #include <vector>
 #include <algorithm>
 
 class Tree {
  public:
-   explicit Tree(std::vector<char> in_v) {
+    explicit Tree (std::vector<char> in_v) {
        root = new Node;
        root->value = 'r';
        Build_Tree(root, in_v);
-   }
-
-   std::string operator[](unsigned int n) const {
+    }
+    std::string operator[] (unsigned int n) const {
        if (n >= param_per.size()) {
            return 0;
        }
        return param_per[n];
-   }
-    
+    }
  private:
     struct Node{
         char value;
@@ -27,7 +26,7 @@ class Tree {
     };
     Node* root;
     void Build_Tree(Node* root, std::vector<char> _v) {
-        if(_v.size() > 0) {
+        if (_v.size() > 0) {
             if ('r' == root->value) {
                 for (unsigned int step = 0; step < _v.size(); step++) {
                     root->level.push_back(new Node);
