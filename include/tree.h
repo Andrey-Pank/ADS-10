@@ -19,8 +19,8 @@ class Tree {
        }
        return param_per[n];
     }
- 
-  private:
+
+ private:
     struct Node{
         char value;
         std::vector<Node*> level;
