@@ -8,7 +8,7 @@
 
 class Tree {
  public:
-    explicit Tree (std::vector<char> in_v) {
+    explicit Tree(std::vector<char> in_v) {
        root = new Node;
        root->value = 'r';
        Build_Tree(root, in_v);
@@ -19,7 +19,8 @@ class Tree {
        }
        return param_per[n];
     }
- private:
+ 
+  private:
     struct Node{
         char value;
         std::vector<Node*> level;
